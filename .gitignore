@@ -1,0 +1,10 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/Delivery.AppConsole/bin/*
+/Delivery.AppConsole/obj/*
+/Delivery.Application/bin/*
+/Delivery.Application/obj/*
+/Delivery.Tests/bin/*
+/Delivery.Tests/obj/*
