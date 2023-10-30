@@ -1,4 +1,5 @@
 using Delivery.Application;
+using Delivery.Application.Interfaces;
 using Delivery.Application.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace Delivery.Tests
         [ExpectedException(typeof(ValidationException), "File not encountered!")]
         public void ShoudNotReadInexistentFile()
         {
-            InputReaderService inputReaderService = new InputReaderService();
+            IInputReaderService inputReaderService = new InputReaderService();
             inputReaderService.ReadFile(@"./TestFile.txt");
         }
 
@@ -23,7 +24,7 @@ namespace Delivery.Tests
             FileInfo fileInfo = new FileInfo(@"./TestFile.txt");
             fileInfo.Create();
 
-            InputReaderService inputReaderService = new InputReaderService();
+            IInputReaderService inputReaderService = new InputReaderService();
             inputReaderService.ReadFile(fileInfo.FullName);
 
             fileInfo.Delete();
@@ -35,8 +36,8 @@ namespace Delivery.Tests
             List<string> inputFileLines = new List<string>();
             inputFileLines.Add("[Drone 1], [100]");
             inputFileLines.Add("[Location 1], [100]");
-            
-            InputReaderService inputReaderService = new InputReaderService();
+
+            IInputReaderService inputReaderService = new InputReaderService();
             Tuple<List<Drone>, List<Location>> result = inputReaderService.MapObjects(inputFileLines.ToArray());
 
             Assert.IsTrue(
@@ -53,7 +54,7 @@ namespace Delivery.Tests
             List<string> inputFileLines = new List<string>();
             inputFileLines.Add("[Drone 1], [100]");
 
-            InputReaderService inputReaderService = new InputReaderService();
+            IInputReaderService inputReaderService = new InputReaderService();
             List<Drone> drones = inputReaderService.MapDrones(inputFileLines.ToArray());
 
             Assert.IsTrue(drones[0].Name.Equals("[Drone 1]") &&
@@ -67,7 +68,7 @@ namespace Delivery.Tests
             inputFileLines.Add(string.Empty);
             inputFileLines.Add("[Location 1], [100]");
 
-            InputReaderService inputReaderService = new InputReaderService();
+            IInputReaderService inputReaderService = new InputReaderService();
             List<Location> locations = inputReaderService.MapLocations(inputFileLines.ToArray());
 
             Assert.IsTrue(locations[0].Name.Equals("[Location 1]") &&

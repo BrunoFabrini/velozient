@@ -1,4 +1,5 @@
 using Delivery.Application;
+using Delivery.Application.Interfaces;
 using Delivery.Application.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -35,7 +36,7 @@ namespace Delivery.Tests
             location2.PackageWeight = 5;
             locations.Add(location2);
 
-            DeliveryService deliveryService = new DeliveryService();
+            IDeliveryService deliveryService = new DeliveryService();
             List<Trip> trips = deliveryService.PlanTrips(drones, locations);
 
             Assert.IsTrue(trips.Count == 1);
@@ -60,7 +61,7 @@ namespace Delivery.Tests
             locations.Add(location1);
 
 
-            DeliveryService deliveryService = new DeliveryService();
+            IDeliveryService deliveryService = new DeliveryService();
             List<Trip> trips = deliveryService.PlanTrips(drones, locations);
 
             Assert.IsTrue(trips.Count(x => x.Drone != null) == 0);
@@ -75,7 +76,7 @@ namespace Delivery.Tests
             Trip trip = new Trip();
             trip.Locations.Add(location);
 
-            DeliveryService deliveryService = new DeliveryService();
+            IDeliveryService deliveryService = new DeliveryService();
 
             Assert.AreEqual(10, deliveryService.GetTripCurrentWeight(trip));
         }
@@ -85,7 +86,7 @@ namespace Delivery.Tests
         {
             Trip trip = new Trip();
 
-            DeliveryService deliveryService = new DeliveryService();
+            IDeliveryService deliveryService = new DeliveryService();
 
             Assert.AreEqual(0, deliveryService.GetTripCurrentWeight(trip));
         }

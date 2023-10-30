@@ -5,7 +5,7 @@ string inputFilePath = @".\Input\Input.txt";
 
 Console.WriteLine("VELOZIENT - DRONE DELIVERY SERVICE");
 Console.WriteLine("Type the full path of your input file or just press enter to run a demo:");
-string userInput = Console.ReadLine();
+string userInput = Console.ReadLine() ?? string.Empty;
 
 if (string.IsNullOrEmpty(userInput))
 {

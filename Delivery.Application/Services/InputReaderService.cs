@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Delivery.Application.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Delivery.Application.Services
 {
-    public class InputReaderService
+    public class InputReaderService : IInputReaderService
     {
         public string[] ReadFile(string inputFilePath)
         {
@@ -33,14 +34,14 @@ namespace Delivery.Application.Services
 
         public List<Drone> MapDrones(string[] inputFileLines)
         {
-            string[] droneInfo = inputFileLines[0].Replace(", ", ",").Split(',');
+            string[] droneInfo = inputFileLines[0].Split(',');
             List<Drone> drones = new List<Drone>();
 
             for (int i = 0; i < droneInfo.Length; i = i + 2)
             {
                 Drone drone = new Drone();
-                drone.Name = droneInfo[i];
-                drone.MaximumWeight = Convert.ToInt32(droneInfo[i + 1].Replace("[", "").Replace("]", ""));
+                drone.Name = droneInfo[i].Trim();
+                drone.MaximumWeight = FormatNumber(droneInfo[i + 1]);
 
                 drones.Add(drone);
             }
@@ -54,17 +55,32 @@ namespace Delivery.Application.Services
 
             for (int i = 1; i < inputFileLines.Length; i++)
             {
-                string[] locationInfo = inputFileLines[i].Replace(", ", ",").Split(',');
+                string[] locationInfo = inputFileLines[i].Split(',');
 
                 Location location = new Location();
-                location.Name = locationInfo[0];
-                location.PackageWeight = Convert.ToInt32(locationInfo[1].Replace("[", "").Replace("]", ""));
+                location.Name = locationInfo[0].Trim();
+                location.PackageWeight = FormatNumber(locationInfo[1]);
                 location.DroneAssigned = false;
 
                 locations.Add(location);
             }
 
             return locations;
+        }
+
+        private int FormatNumber(string input)
+        {
+            string formattedNumber = string.Empty;
+            foreach(char character in input)
+            {
+                if (!char.IsNumber(character))
+                    continue;
+
+                formattedNumber += character;
+            }
+
+            int number = Convert.ToInt32(formattedNumber);
+            return number;
         }
     }
 }

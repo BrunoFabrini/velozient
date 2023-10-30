@@ -1,6 +1,8 @@
-﻿namespace Delivery.Application.Services
+﻿using Delivery.Application.Interfaces;
+
+namespace Delivery.Application.Services
 {
-    public class DeliveryService
+    public class DeliveryService : IDeliveryService
     {
         public List<Trip> PlanTrips(List<Drone> drones, List<Location> locations)
         {

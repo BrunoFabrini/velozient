@@ -1,8 +1,9 @@
-﻿using System.Text;
+﻿using Delivery.Application.Interfaces;
+using System.Text;
 
 namespace Delivery.Application.Services
 {
-    public class PrintService
+    public class PrintService : IPrintService
     {
         public void PrintFileContent(string[] inputFileLines)
         {

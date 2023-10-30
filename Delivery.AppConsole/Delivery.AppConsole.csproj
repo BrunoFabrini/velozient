@@ -8,19 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Output\**" />
+    <EmbeddedResource Remove="Output\**" />
+    <None Remove="Output\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Delivery.Application\Delivery.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Input\" />
-    <Folder Include="Output\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Input\Input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Output\Output.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
